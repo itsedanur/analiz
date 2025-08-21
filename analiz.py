@@ -5,7 +5,7 @@ import numpy as np
 import os
 import seaborn as sns
 
-# Örnek veri oluşturuyorum yoksa diye
+
 data_file = "data/satis_verisi.xlsx"
 if not os.path.exists(data_file):
     os.makedirs("data", exist_ok=True)
@@ -17,19 +17,19 @@ if not os.path.exists(data_file):
 else:
     df = pd.read_excel(data_file)
 
-#  Veri işliyoruz
+
 df["Tarih"] = pd.to_datetime(df["Tarih"])
 df.set_index("Tarih", inplace=True)
 df["7G_Hareketli"] = df["Satış"].rolling(window=7).mean()
 df["30G_Hareketli"] = df["Satış"].rolling(window=30).mean()
 aylik = df["Satış"].resample("ME").sum()
 
-#  Stil ayarları
 
-sns.set_theme(style="darkgrid")  # ✅ seaborn üzerinden stil uygulaması
+
+sns.set_theme(style="darkgrid")  
   # veya listedeki herhangi biri
 fig, axes = plt.subplots(2, 2, figsize=(16, 10))
-fig.suptitle("📊 Satış Verisi Gelişmiş Zaman Serisi Analizi", fontsize=16, fontweight='bold')
+fig.suptitle(" Satış Verisi Gelişmiş Zaman Serisi Analizi", fontsize=16, fontweight='bold')
 
 # Grafik 1: Günlük ve hareketli ortalama
 axes[0, 0].plot(df.index, df["Satış"], label="Günlük Satış", alpha=0.4)
